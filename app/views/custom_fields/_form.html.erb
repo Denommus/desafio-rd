@@ -1,4 +1,4 @@
-<%= form_for(@custom_field) do |f| %>
+<%= form_for(@custom_field, data: { 'ng-app' => 'FieldApp', 'ng-controller' => 'FieldController' }) do |f| %>
   <% if @custom_field.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
@@ -17,7 +17,17 @@
   </div>
   <div class="field">
     <%= f.label :field_type %><br>
-    <%= f.select :field_type %>
+    <%= f.select :field_type, ['Text', 'Text field', 'Combo Box'], {}, { data: { 'ng-model' => 'type', 'ng-init' => "type='#{@custom_field.field_type || 'Text'}';options=#{@custom_field.combo_box_options.to_json}" } } %>
+  </div>
+  <div data-ng-if="type==='Combo Box'">
+    <div data-ng-repeat="option in options track by $index" class="field" data-ng-show="!options[$index]._destroy">
+      <label for="custom_field_combo_box_options_attributes_{{$index}}_name">Name</label>
+      <input type="text" data-ng-model="options[$index].name" name="custom_field[combo_box_options_attributes][{{$index}}][name]" id="custom_field_combo_box_options_attributes_{{$index}}_name" />
+      <input type="hidden" data-ng-value="options[$index].id" name="custom_field[combo_box_options_attributes][{{$index}}][id]" id="custom_field_combo_box_options_attributes_{{$index}}_id" />
+      <input type="hidden" data-ng-value="options[$index]._destroy" name="custom_field[combo_box_options_attributes][{{$index}}][_destroy]" id="custom_field_combo_box_options_attributes_{{$index}}__destroy" />
+      <a data-ng-click="removeOption($index)">X</a>
+    </div>
+    <a data-ng-click="addOption()">Add option</a>
   </div>
   <div class="actions">
     <%= f.submit %>

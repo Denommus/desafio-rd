@@ -17,7 +17,7 @@
         <td><%= custom_field.name %></td>
         <td><%= custom_field.field_type %></td>
         <td><%= link_to 'Show', custom_field %></td>
-        <td><%= link_to 'Edit', edit_custom_field_path(custom_field) %></td>
+        <td><%= link_to 'Edit', edit_custom_field_path(custom_field), data: { 'no-turbo-link' => '' } %></td>
         <td><%= link_to 'Destroy', custom_field, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Custom field', new_custom_field_path %>
+<%= link_to 'New Custom field', new_custom_field_path, data: { 'no-turbo-link' => ''} %>

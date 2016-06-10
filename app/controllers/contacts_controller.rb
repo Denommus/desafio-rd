@@ -16,10 +16,7 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
-    custom_fields = CustomField.where(user_id: current_user.id)
-    custom_fields.each do |c|
-      @contact.contact_custom_fields.build(custom_field: c)
-    end
+    @contact.custom_fields = CustomField.where(user_id: current_user.id)
   end
 
   # GET /contacts/1/edit

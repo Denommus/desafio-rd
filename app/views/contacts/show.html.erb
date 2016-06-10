@@ -5,5 +5,12 @@
   <%= @contact.email %>
 </p>
 
+<% @contact.contact_custom_fields.each do |field| %>
+  <p>
+    <strong><%= field.custom_field.name %>:</strong>
+    <%= field.value %>
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_contact_path(@contact) %> |
 <%= link_to 'Back', contacts_path %>

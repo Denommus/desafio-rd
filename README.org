@@ -1,0 +1,31 @@
+** README
+
+It is recommended that you have [[https://github.com/rbenv/rbenv][rbenv]] installed and configured to use this application.
+
+*** Pre-requisites
+If you're going to use rbenv, you'll also need sqlite3 to be installed in your system. Follow your operating system's instructions for that.
+
+Install ruby 2.3.1
+#+BEGIN_SRC sh
+  rbenv install 2.3.1
+#+END_SRC
+After that, install all the dependencies of the project with
+#+BEGIN_SRC sh
+  gem install bundle
+  rbenv rehash
+  bundle install
+#+END_SRC
+
+*** Create the database
+Execute the following to create the database and generate the required tables
+#+BEGIN_SRC sh
+  bin/rake db:create
+  bin/rake db:migrate
+#+END_SRC
+
+*** Run the server
+Finally, run the server with
+#+BEGIN_SRC sh
+  bin/rails server
+#+END_SRC
+And you'll be able to use the application from http://localhost:3000/

@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610164245) do
+ActiveRecord::Schema.define(version: 20160610170944) do
+
+  create_table "combo_box_options", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "custom_field_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "contacts", force: :cascade do |t|
     t.string   "email"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "custom_fields", force: :cascade do |t|
+    t.string   "name"
+    t.string   "field_type"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

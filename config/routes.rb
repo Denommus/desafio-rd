@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :custom_fields
   resources :contacts
   devise_for :users
   root to: 'home#index'  

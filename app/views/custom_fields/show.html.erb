@@ -10,5 +10,16 @@
   <%= @custom_field.field_type %>
 </p>
 
+<p>
+  <strong>Combo box options</strong>
+  <% if @custom_field.field_type == 'Combo Box' %>
+    <ul>
+      <% @custom_field.combo_box_options.each do |o| %>
+        <li><%= o.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_custom_field_path(@custom_field) %> |
 <%= link_to 'Back', custom_fields_path %>

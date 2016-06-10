@@ -16,7 +16,10 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
-    @custom_fields = CustomField.where(user_id: current_user.id)
+    custom_fields = CustomField.where(user_id: current_user.id)
+    custom_fields.each do |c|
+      @contact.contact_custom_fields.build(custom_field: c)
+    end
   end
 
   # GET /contacts/1/edit
@@ -72,6 +75,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:email).merge(user_id: current_user.id)
+      params.require(:contact).permit(:email, contact_custom_fields_attributes: [:value, :id, :custom_field_id, :custom_field]).merge(user_id: current_user.id)
     end
 end

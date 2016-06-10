@@ -15,6 +15,20 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+  <%= f.fields_for :contact_custom_fields do |field| %>
+    <div class="field">
+      <%= field.label :value, field.object.custom_field.name %><br/>
+      <% if field.object.custom_field.field_type == 'Text' %>
+        <%= field.text_field :value %>
+      <% elsif field.object.custom_field.field_type == 'Text field' %>
+        <%= field.text_area :value %>
+      <% else %>
+        <%= field.select :value, field.object.custom_field.combo_box_options.map { |o| o.name } %>
+      <% end %>
+      <%= field.hidden_field :id %>
+      <%= field.hidden_field :custom_field_id %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

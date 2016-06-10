@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
+    @contacts = Contact.where(user_id: current_user.id)
   end
 
   # GET /contacts/1
@@ -16,10 +16,12 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
+    @custom_fields = CustomField.where(user_id: current_user.id)
   end
 
   # GET /contacts/1/edit
   def edit
+    @custom_fields = CustomField.where(user_id: current_user.id)
   end
 
   # POST /contacts
